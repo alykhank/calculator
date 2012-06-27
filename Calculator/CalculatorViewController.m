@@ -80,4 +80,29 @@
     self.history.text = @"";
 }
 
+- (IBAction)backspacePressed {
+    if ([self.display.text length] > 1)
+        self.display.text = [self.display.text substringToIndex:[self.display.text length] - 1];
+    else if ([self.display.text length] == 1)
+        self.display.text = @"0";
+}
+
+- (IBAction)signPressed {
+    if ([self.history.text hasSuffix:@"="]) {
+        self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
+    }
+    
+    NSRange range = [self.display.text rangeOfString:@"-"];
+    if (self.userIsInTheMiddleOfEnteringANumber && range.location == NSNotFound) {
+        self.display.text = [@"-" stringByAppendingString:self.display.text];
+    } else if (self.userIsInTheMiddleOfEnteringANumber && range.location != NSNotFound) {
+        self.display.text = [self.display.text substringFromIndex:1];
+    } else {
+        double result = [self.brain performOperation:@"switchSign"];
+        NSString *resultString = [NSString stringWithFormat:@"%g", result];
+        self.display.text = resultString;
+        self.history.text = [self.history.text stringByAppendingString:@"+/-"];
+        self.history.text = [self.history.text stringByAppendingString:@" ="];
+    }
+}
 @end

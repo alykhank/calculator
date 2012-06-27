@@ -57,6 +57,8 @@
         result = M_PI;
     } else if ([operation isEqualToString:@"e"]) {
         result = M_E;
+    } else if ([operation isEqualToString:@"switchSign"]) {
+        result = -[self popOperand];
     }
     
     [self pushOperand:result];
