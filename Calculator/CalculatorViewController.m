@@ -68,8 +68,11 @@
 
 - (IBAction)decimalPressed {
     NSRange range = [self.display.text rangeOfString:@"."];
-    if (range.location == NSNotFound) {
+    if (range.location == NSNotFound && self.userIsInTheMiddleOfEnteringANumber) {
         self.display.text = [self.display.text stringByAppendingString:@"."];
+    } else if (range.location == NSNotFound) {
+        self.display.text = @"0.";
+        self.userIsInTheMiddleOfEnteringANumber = YES;
     }
 }
 
