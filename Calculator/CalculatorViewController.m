@@ -95,14 +95,13 @@
     NSRange range = [self.display.text rangeOfString:@"-"];
     if (self.userIsInTheMiddleOfEnteringANumber && range.location == NSNotFound) {
         self.display.text = [@"-" stringByAppendingString:self.display.text];
-    } else if (self.userIsInTheMiddleOfEnteringANumber && range.location != NSNotFound) {
+    } else if (self.userIsInTheMiddleOfEnteringANumber) {
         self.display.text = [self.display.text substringFromIndex:1];
     } else {
         double result = [self.brain performOperation:@"switchSign"];
         NSString *resultString = [NSString stringWithFormat:@"%g", result];
         self.display.text = resultString;
-        self.history.text = [self.history.text stringByAppendingString:@"+/-"];
-        self.history.text = [self.history.text stringByAppendingString:@" ="];
+        self.history.text = [self.history.text stringByAppendingString:@"+/- ="];
     }
 }
 @end
