@@ -27,8 +27,9 @@
 
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = sender.currentTitle;
-//    NSLog(@"user touched %@", digit);
-    
+//	NSLog(@"user touched %@", digit);
+	
+    // If history ends with "=", remove the sign
     if ([self.history.text hasSuffix:@"="]) {
         self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
     }
@@ -47,7 +48,8 @@
 }
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
-    
+
+	// If history ends with "=", remove the sign
     if ([self.history.text hasSuffix:@"="]) {
         self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
     }
@@ -59,6 +61,7 @@
 - (IBAction)operationPressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
     
+	// If history ends with "=", remove the sign
     if ([self.history.text hasSuffix:@"="]) {
         self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
     }
@@ -72,6 +75,7 @@
 
 - (IBAction)decimalPressed {
 	
+	// If history ends with "=", remove the sign
 	if ([self.history.text hasSuffix:@"="]) {
         self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
     }
@@ -104,6 +108,7 @@
 }
 
 - (IBAction)signPressed {
+	// If history ends with "=", remove the sign
     if ([self.history.text hasSuffix:@"="]) {
         self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
     }
