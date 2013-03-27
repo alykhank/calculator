@@ -10,6 +10,7 @@
 
 @interface CalculatorBrain()
 @property (nonatomic, strong) NSMutableArray *programStack;
++ (BOOL)isOperation:(NSString *)operation;
 @end
 
 @implementation CalculatorBrain
@@ -37,6 +38,11 @@
     [self.programStack addObject:[NSNumber numberWithDouble:operand]];
 }
 
+- (void)pushVariable:(NSString *)variable
+{
+	[self.programStack addObject:variable];
+}
+
 - (double)performOperation:(NSString *)operation
 {
 	[self.programStack addObject:operation];
@@ -54,7 +60,8 @@
 	{
 		result = [topOfStack doubleValue];
 	}
-	else if ([topOfStack isKindOfClass:[NSString class]]) {
+	else if ([topOfStack isKindOfClass:[NSString class]])
+	{
 		NSString *operation = topOfStack;
 		if ([operation isEqualToString:@"+"]) {
 			result = [self popOperandOffProgramStack:stack] + [self popOperandOffProgramStack:stack];
@@ -92,7 +99,60 @@
 	if ([program isKindOfClass:[NSArray class]]) {
 		stack = [program mutableCopy];
 	}
+	for (int i = 0; i < stack.count; i++)
+	{
+		id element = [stack objectAtIndex:i];
+		if ([[[self class] variablesUsedInProgram:program] containsObject:element])
+		{
+			[stack replaceObjectAtIndex:i withObject:[NSNumber numberWithDouble:0]];
+		}
+	}
 	return [self popOperandOffProgramStack:stack];
+}
+
++ (double)runProgram:(id)program
+ usingVariableValues:(NSDictionary *)variableValues;
+{
+	NSMutableArray *stack;
+	if ([program isKindOfClass:[NSArray class]]) {
+		stack = [program mutableCopy];
+	}
+	for (int i = 0; i < stack.count; i++)
+	{
+		id element = [stack objectAtIndex:i];
+//		if ([element isKindOfClass:[NSString class]] && ![element isOperation:element])
+		if ([[[self class] variablesUsedInProgram:program] containsObject:element])
+		{
+			NSNumber *variableValue = [variableValues objectForKey:element];
+			// Replace variable with its value if it exists in the dictionary, else replace it with 0
+			if (variableValue) [stack replaceObjectAtIndex:i withObject:[variableValues objectForKey:element]];
+			else [stack replaceObjectAtIndex:i withObject:[NSNumber numberWithDouble:0]];
+		}
+	}
+	return [self popOperandOffProgramStack:stack];
+}
+
++ (BOOL)isOperation:(NSString *)operation
+{
+	NSSet *operations = [NSSet setWithObjects:@"+", @"-", @"*", @"/", @"sin", @"cos", @"sqrt", @"log", @"π", @"e", @"switchSign", nil];
+	if ([operations containsObject:operation]) {
+		return true;
+	}
+	return false;
+}
+
++ (NSSet *)variablesUsedInProgram:(id)program
+{
+	NSMutableArray *variables = [[NSMutableArray alloc] init];
+	for (id element in program)
+	{
+		if ([element isKindOfClass:[NSString class]] && ![[self class] isOperation:element])
+		{
+			[variables addObject:element];
+		}
+	}
+	if ([variables count] == 0) return nil;
+	return [NSSet setWithArray:variables];
 }
 
 - (void)performClear {
