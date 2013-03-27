@@ -40,8 +40,10 @@
             self.display.text = digit;
             self.userIsInTheMiddleOfEnteringANumber = YES;
         }
+		else {
+			self.display.text = digit;
+		}
     }
-//    self.history.text = [self.history.text stringByAppendingString:digit];
 }
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
