@@ -10,7 +10,6 @@
 
 @interface CalculatorBrain()
 @property (nonatomic, strong) NSMutableArray *programStack;
-+ (BOOL)isOperation:(NSString *)operation;
 @end
 
 @implementation CalculatorBrain
@@ -30,7 +29,16 @@
 
 + (NSString *)descriptionOfProgram:(id)program
 {
-	return @"Implement this in Homework #2";
+	NSMutableArray *stack;
+	if ([program isKindOfClass:[NSArray class]]) {
+		stack = [program mutableCopy];
+	}
+	NSMutableArray *programItems = [[NSMutableArray alloc] init];
+	while ([stack count] > 0)
+	{
+		[programItems addObject:[self descriptionOfTopOfStack:stack]];
+	}
+	return [NSString stringWithFormat:@"%@", programItems];
 }
 
 - (void)pushOperand:(double)operand
@@ -47,6 +55,41 @@
 {
 	[self.programStack addObject:operation];
 	return [[self class] runProgram:self.program];
+}
+
++ (NSString *)descriptionOfTopOfStack:(NSMutableArray *)stack
+{
+	NSString *result;
+	
+	id topOfStack = [stack lastObject];
+	if (topOfStack) [stack removeLastObject];
+    
+	if ([topOfStack isKindOfClass:[NSNumber class]])
+	{
+		result = [NSString stringWithFormat:@"%@", topOfStack];
+	}
+	else if ([topOfStack isKindOfClass:[NSString class]])
+	{
+		NSString *operation = topOfStack;
+		if ([[self class] numberOfOperandsRequired:operation] == 2)
+		{
+			NSString *firstOperand = [self descriptionOfTopOfStack:stack];
+			NSString *secondOperand = [self descriptionOfTopOfStack:stack];
+			result = [NSString stringWithFormat:@"%@ %@ %@", secondOperand, operation, firstOperand];
+		}
+		else if ([[self class] numberOfOperandsRequired:operation] == 1)
+		{
+			NSString *firstOperand = [self descriptionOfTopOfStack:stack];
+			if ([operation isEqualToString:@"switchSign"]) result = [NSString stringWithFormat:@"-%@", firstOperand];
+			else result = [NSString stringWithFormat:@"%@(%@)", operation, firstOperand];
+		}
+		else if ([[self class] numberOfOperandsRequired:operation] == 0)
+		{
+			result = [NSString stringWithFormat:@"%@", operation];
+		}
+	}
+    
+    return result;
 }
 
 + (double)popOperandOffProgramStack:(NSMutableArray *)stack
@@ -153,6 +196,15 @@
 	}
 	if ([variables count] == 0) return nil;
 	return [NSSet setWithArray:variables];
+}
+
++ (int)numberOfOperandsRequired:(NSString *)operation
+{
+	NSSet *twoOperandOperations = [NSSet setWithObjects:@"+", @"-", @"*", @"/", nil];
+	NSSet *oneOperandOperations = [NSSet setWithObjects:@"sin", @"cos", @"sqrt", @"log", @"switchSign", nil];
+	if ([twoOperandOperations containsObject:operation]) return 2;
+	else if ([oneOperandOperations containsObject:operation]) return 1;
+	else return 0;
 }
 
 - (void)performClear {
