@@ -71,16 +71,16 @@
 }
 
 - (IBAction)decimalPressed {
+	
+	if ([self.history.text hasSuffix:@"="]) {
+        self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
+    }
+	
     NSRange range = [self.display.text rangeOfString:@"."];
     if (range.location == NSNotFound) {
         if (self.userIsInTheMiddleOfEnteringANumber) {
             self.display.text = [self.display.text stringByAppendingString:@"."];
         } else {
-            self.display.text = @"0.";
-            self.userIsInTheMiddleOfEnteringANumber = YES;
-        }
-    } else {
-        if (!self.userIsInTheMiddleOfEnteringANumber) {
             self.display.text = @"0.";
             self.userIsInTheMiddleOfEnteringANumber = YES;
         }
