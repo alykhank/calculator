@@ -75,7 +75,11 @@
 		{
 			NSString *firstOperand = [self descriptionOfTopOfStack:stack];
 			NSString *secondOperand = [self descriptionOfTopOfStack:stack];
-			result = [NSString stringWithFormat:@"%@ %@ %@", secondOperand, operation, firstOperand];
+			if ([operation isEqualToString:@"*"] || [operation isEqualToString:@"/"])
+			{
+				result = [NSString stringWithFormat:@"%@ %@ (%@)", secondOperand, operation, firstOperand];
+			}
+			else result = [NSString stringWithFormat:@"%@ %@ %@", secondOperand, operation, firstOperand];
 		}
 		else if ([[self class] numberOfOperandsRequired:operation] == 1)
 		{
