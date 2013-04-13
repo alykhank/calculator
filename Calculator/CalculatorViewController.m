@@ -18,6 +18,7 @@
 @implementation CalculatorViewController
 @synthesize display = _display;
 @synthesize history = _history;
+@synthesize variables = _variables;
 @synthesize userIsInTheMiddleOfEnteringANumber = _userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
 @synthesize testVariableValues = _testVariableValues;
@@ -39,6 +40,12 @@
     }
     
     self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
+    NSString *variableValues = @"";
+    for (NSString *variable in [[self.brain class] variablesUsedInProgram:self.brain.program])
+    {
+        variableValues = [variableValues stringByAppendingFormat:@"%@ = %@    ", variable, [self.testVariableValues objectForKey:variable]];
+    }
+    self.variables.text = variableValues;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
