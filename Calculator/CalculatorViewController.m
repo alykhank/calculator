@@ -27,7 +27,6 @@
 
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = sender.currentTitle;
-//	NSLog(@"user touched %@", digit);
 	
     // If history ends with "=", remove the sign
     if ([self.history.text hasSuffix:@"="]) {
@@ -54,8 +53,7 @@
         self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
     }
     
-    self.history.text = [self.history.text stringByAppendingString:self.display.text];
-    self.history.text = [self.history.text stringByAppendingString:@" "];
+    self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
     self.userIsInTheMiddleOfEnteringANumber = NO;
 }
 - (IBAction)operationPressed:(UIButton *)sender {
@@ -69,7 +67,7 @@
     double result = [self.brain performOperation:sender.currentTitle];
     NSString *resultString = [NSString stringWithFormat:@"%g", result];
     self.display.text = resultString;
-    self.history.text = [self.history.text stringByAppendingString:sender.currentTitle];
+    self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
     self.history.text = [self.history.text stringByAppendingString:@" ="];
 }
 
@@ -95,7 +93,7 @@
     [self.brain performClear];
     self.display.text = @"0";
     self.userIsInTheMiddleOfEnteringANumber = NO;
-    self.history.text = @"";
+    self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
 }
 
 - (IBAction)backspacePressed {
@@ -122,7 +120,8 @@
         double result = [self.brain performOperation:@"switchSign"];
         NSString *resultString = [NSString stringWithFormat:@"%g", result];
         self.display.text = resultString;
-        self.history.text = [self.history.text stringByAppendingString:@"+/- ="];
+        self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
+                self.history.text = [self.history.text stringByAppendingString:@" ="];
     }
 }
 @end
