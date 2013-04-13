@@ -29,7 +29,7 @@
 }
 
 - (NSDictionary *)testVariableValues {
-    _testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:2], @"x", [NSNumber numberWithDouble:3], @"y", [NSNumber numberWithDouble:1], @"foo", nil];
+    if (!_testVariableValues) _testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:0], @"x", [NSNumber numberWithDouble:0], @"y", nil];
     return _testVariableValues;
 }
 
@@ -99,6 +99,7 @@
     self.display.text = @"0";
     self.userIsInTheMiddleOfEnteringANumber = NO;
     [self updateDisplay];
+    self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:0], @"x", [NSNumber numberWithDouble:0], @"y", nil];
 }
 
 - (IBAction)backspacePressed {
@@ -129,6 +130,14 @@
     [self.brain pushVariable:sender.currentTitle];
     [self updateDisplay];
     self.display.text = sender.currentTitle;
+}
+- (IBAction)testButtonPressed:(UIButton *)sender {
+    if ([sender.currentTitle isEqualToString:@"Test 1"])
+        self.testVariableValues = nil;
+    else if ([sender.currentTitle isEqualToString:@"Test 2"])
+        self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:1], @"x", [NSNumber numberWithDouble:2], @"y", nil];
+    [self updateDisplay];
+    self.history.text = [self.history.text stringByAppendingString:@" ="];
 }
 
 @end
