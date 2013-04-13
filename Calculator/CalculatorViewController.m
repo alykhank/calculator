@@ -34,17 +34,15 @@
 }
 
 - (void)updateDisplay {
-    // If history ends with "=", remove the sign
-    if ([self.history.text hasSuffix:@" ="]) {
-        self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
-    }
+    double result = [[self.brain class] runProgram:self.brain.program usingVariableValues:self.testVariableValues];
+    NSString *resultString = [NSString stringWithFormat:@"%g", result];
+    self.display.text = resultString;
     
     self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
+    
     NSString *variableValues = @"";
     for (NSString *variable in [[self.brain class] variablesUsedInProgram:self.brain.program])
-    {
         variableValues = [variableValues stringByAppendingFormat:@"%@ = %@    ", variable, [self.testVariableValues objectForKey:variable]];
-    }
     self.variables.text = variableValues;
 }
 
@@ -76,9 +74,6 @@
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
     
     [self.brain pushOperation:sender.currentTitle];
-    double result = [[self.brain class] runProgram:self.brain.program usingVariableValues:self.testVariableValues];
-    NSString *resultString = [NSString stringWithFormat:@"%g", result];
-    self.display.text = resultString;
     
     [self updateDisplay];
     self.history.text = [self.history.text stringByAppendingString:@" ="];
@@ -124,9 +119,6 @@
         self.display.text = [self.display.text substringFromIndex:1];
     } else {
         [self.brain pushOperation:@"switchSign"];
-        double result = [[self.brain class] runProgram:self.brain.program usingVariableValues:self.testVariableValues];
-        NSString *resultString = [NSString stringWithFormat:@"%g", result];
-        self.display.text = resultString;
         [self updateDisplay];
         self.history.text = [self.history.text stringByAppendingString:@" ="];
     }
@@ -135,9 +127,8 @@
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
     
     [self.brain pushVariable:sender.currentTitle];
-    self.display.text = sender.currentTitle;
-    
     [self updateDisplay];
+    self.display.text = sender.currentTitle;
 }
 
 @end

@@ -98,6 +98,10 @@
 			result = [NSString stringWithFormat:@"%@", operation];
 		}
 	}
+    else
+    {
+        result = [NSString stringWithFormat:@"0"];
+    }
     
     return result;
 }
