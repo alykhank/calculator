@@ -51,6 +51,11 @@
 	[self.programStack addObject:variable];
 }
 
+- (void)pushOperation:(NSString *)operation
+{
+	[self.programStack addObject:operation];
+}
+
 - (double)performOperation:(NSString *)operation
 {
 	[self.programStack addObject:operation];

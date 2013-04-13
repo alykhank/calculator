@@ -12,6 +12,7 @@
 @interface CalculatorViewController ()
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic, strong) CalculatorBrain *brain;
+@property (nonatomic, strong) NSDictionary *testVariableValues;
 @end
 
 @implementation CalculatorViewController
@@ -19,10 +20,16 @@
 @synthesize history = _history;
 @synthesize userIsInTheMiddleOfEnteringANumber = _userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
+@synthesize testVariableValues = _testVariableValues;
 
 - (CalculatorBrain *)brain {
     if (!_brain) _brain = [[CalculatorBrain alloc] init];
     return _brain;
+}
+
+- (NSDictionary *)testVariableValues {
+    _testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:2], @"x", [NSNumber numberWithDouble:3], @"y", [NSNumber numberWithDouble:1], @"foo", nil];
+    return _testVariableValues;
 }
 
 - (void)updateDisplay {
@@ -61,7 +68,8 @@
 - (IBAction)operationPressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
     
-    double result = [self.brain performOperation:sender.currentTitle];
+    [self.brain pushOperation:sender.currentTitle];
+    double result = [[self.brain class] runProgram:self.brain.program usingVariableValues:self.testVariableValues];
     NSString *resultString = [NSString stringWithFormat:@"%g", result];
     self.display.text = resultString;
     
@@ -108,7 +116,8 @@
     } else if (self.userIsInTheMiddleOfEnteringANumber) {
         self.display.text = [self.display.text substringFromIndex:1];
     } else {
-        double result = [self.brain performOperation:@"switchSign"];
+        [self.brain pushOperation:@"switchSign"];
+        double result = [[self.brain class] runProgram:self.brain.program usingVariableValues:self.testVariableValues];
         NSString *resultString = [NSString stringWithFormat:@"%g", result];
         self.display.text = resultString;
         [self updateDisplay];
