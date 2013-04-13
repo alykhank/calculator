@@ -83,7 +83,7 @@
 			NSString *firstOperand = [self descriptionOfTopOfStack:stack];
 			if ([operation isEqualToString:@"switchSign"])
             {
-                if ([firstOperand rangeOfString:@"-"].location == 0) result = [NSString stringWithFormat:@"%@", [[firstOperand substringFromIndex:2] substringToIndex:[firstOperand length] - 3]];
+                if ([firstOperand rangeOfString:@"-"].location == 0 && [firstOperand rangeOfString:@"("].location == 1 && [firstOperand rangeOfString:@")"].location == [firstOperand length] - 1) result = [NSString stringWithFormat:@"%@", [[firstOperand substringFromIndex:2] substringToIndex:[firstOperand length] - 3]];
                 else result = [NSString stringWithFormat:@"-(%@)", firstOperand];
             }
 			else result = [NSString stringWithFormat:@"%@(%@)", operation, firstOperand];

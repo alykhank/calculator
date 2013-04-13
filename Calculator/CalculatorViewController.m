@@ -25,13 +25,19 @@
     return _brain;
 }
 
+- (void)updateDisplay {
+    // If history ends with "=", remove the sign
+    if ([self.history.text hasSuffix:@" ="]) {
+        self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
+    }
+    
+    self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
+}
+
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = sender.currentTitle;
 	
-    // If history ends with "=", remove the sign
-    if ([self.history.text hasSuffix:@"="]) {
-        self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
-    }
+    [self updateDisplay];
     
     if (self.userIsInTheMiddleOfEnteringANumber) {
         self.display.text = [self.display.text stringByAppendingString:digit];
@@ -48,35 +54,24 @@
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
 
-	// If history ends with "=", remove the sign
-    if ([self.history.text hasSuffix:@"="]) {
-        self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
-    }
+    [self updateDisplay];
     
-    self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
     self.userIsInTheMiddleOfEnteringANumber = NO;
 }
 - (IBAction)operationPressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
     
-	// If history ends with "=", remove the sign
-    if ([self.history.text hasSuffix:@"="]) {
-        self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
-    }
-    
     double result = [self.brain performOperation:sender.currentTitle];
     NSString *resultString = [NSString stringWithFormat:@"%g", result];
     self.display.text = resultString;
-    self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
+    
+    [self updateDisplay];
     self.history.text = [self.history.text stringByAppendingString:@" ="];
 }
 
 - (IBAction)decimalPressed {
 	
-	// If history ends with "=", remove the sign
-	if ([self.history.text hasSuffix:@"="]) {
-        self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
-    }
+    [self updateDisplay];
 	
     NSRange range = [self.display.text rangeOfString:@"."];
     if (range.location == NSNotFound) {
@@ -93,7 +88,7 @@
     [self.brain performClear];
     self.display.text = @"0";
     self.userIsInTheMiddleOfEnteringANumber = NO;
-    self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
+    [self updateDisplay];
 }
 
 - (IBAction)backspacePressed {
@@ -106,10 +101,6 @@
 }
 
 - (IBAction)signPressed {
-	// If history ends with "=", remove the sign
-    if ([self.history.text hasSuffix:@"="]) {
-        self.history.text = [self.history.text substringToIndex:[self.history.text length] - 1];
-    }
     
     NSRange range = [self.display.text rangeOfString:@"-"];
     if (self.userIsInTheMiddleOfEnteringANumber && range.location == NSNotFound) {
@@ -120,8 +111,9 @@
         double result = [self.brain performOperation:@"switchSign"];
         NSString *resultString = [NSString stringWithFormat:@"%g", result];
         self.display.text = resultString;
-        self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
-                self.history.text = [self.history.text stringByAppendingString:@" ="];
+        [self updateDisplay];
+        self.history.text = [self.history.text stringByAppendingString:@" ="];
     }
 }
+
 @end
