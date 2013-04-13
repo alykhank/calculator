@@ -115,5 +115,13 @@
         self.history.text = [self.history.text stringByAppendingString:@" ="];
     }
 }
+- (IBAction)variablePressed:(UIButton *)sender {
+    if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
+    
+    [self.brain pushVariable:sender.currentTitle];
+    self.display.text = sender.currentTitle;
+    
+    [self updateDisplay];
+}
 
 @end
