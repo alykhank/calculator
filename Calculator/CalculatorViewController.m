@@ -126,6 +126,7 @@
         self.history.text = [self.history.text stringByAppendingString:@" ="];
     }
 }
+
 - (IBAction)variablePressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
     [self.brain pushOperation:sender.currentTitle];
@@ -133,12 +134,16 @@
     self.display.text = sender.currentTitle;
     self.userIsInTheMiddleOfEnteringANumber = NO;
 }
-- (IBAction)testButtonPressed:(UIButton *)sender {
-    if ([sender.currentTitle isEqualToString:@"Test 1"]) self.testVariableValues = nil;
+
+- (IBAction)testVariablesChanged:(UISegmentedControl *)sender {
+    if ([[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] isEqualToString:@"1"]) self.testVariableValues = nil;
+    else if ([[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] isEqualToString:@"2"]) self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithDouble:-3], @"x", [NSNumber numberWithDouble:4], @"y", nil];
     [self updateDisplay];
     [self updateHistoryAndVariablesValues];
     self.history.text = [self.history.text stringByAppendingString:@" ="];
+
 }
+
 - (IBAction)undoPressed {
     if (self.userIsInTheMiddleOfEnteringANumber) {
         if ([self.display.text length] > 1) [self backspacePressed];
