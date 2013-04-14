@@ -14,6 +14,7 @@
 - (void)pushOperation:(NSString *)operation;
 - (void)pushVariable:(NSString *)variable;
 - (double)performOperation:(NSString *)operation;
+- (void)popItem;
 - (void)performClear;
 
 @property (nonatomic, readonly) id program;

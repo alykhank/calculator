@@ -141,11 +141,24 @@
 - (IBAction)testButtonPressed:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"Test 1"])
         self.testVariableValues = nil;
-    else if ([sender.currentTitle isEqualToString:@"Test 2"])
-        self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:1], @"x", [NSNumber numberWithDouble:2], @"y", nil];
     [self updateDisplay];
     [self updateHistoryAndVariablesValues];
     self.history.text = [self.history.text stringByAppendingString:@" ="];
+}
+- (IBAction)undoPressed {
+    if (self.userIsInTheMiddleOfEnteringANumber) {
+        if ([self.display.text length] > 1) [self backspacePressed];
+        else {
+            self.userIsInTheMiddleOfEnteringANumber = NO;
+            [self updateDisplay];
+            self.history.text = [self.history.text stringByAppendingString:@" ="];
+        }
+    }
+    else {
+        [self.brain popItem];
+        [self updateHistoryAndVariablesValues];
+        [self updateDisplay];
+    }
 }
 
 @end

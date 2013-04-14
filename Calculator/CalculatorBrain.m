@@ -18,7 +18,7 @@
 
 - (NSMutableArray *)programStack
 {
-    if (_programStack == nil) _programStack = [[NSMutableArray alloc] init];
+    if (!_programStack) _programStack = [[NSMutableArray alloc] init];
     return _programStack;
 }
 
@@ -213,6 +213,11 @@
 
 - (void)performClear {
     [self.programStack removeAllObjects];
+}
+
+- (void)popItem
+{
+    [self.programStack removeLastObject];
 }
 
 @end
