@@ -12,7 +12,6 @@
 
 - (void)pushOperand:(double)operand;
 - (void)pushOperation:(NSString *)operation;
-- (void)pushVariable:(NSString *)variable;
 - (double)performOperation:(NSString *)operation;
 - (void)popItem;
 - (void)performClear;

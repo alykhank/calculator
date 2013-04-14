@@ -67,16 +67,13 @@
 }
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
-
     [self updateHistoryAndVariablesValues];
-    
     self.userIsInTheMiddleOfEnteringANumber = NO;
 }
+
 - (IBAction)operationPressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
-    
     [self.brain pushOperation:sender.currentTitle];
-    
     [self updateDisplay];
     [self updateHistoryAndVariablesValues];
     self.history.text = [self.history.text stringByAppendingString:@" ="];
@@ -85,7 +82,6 @@
 - (IBAction)decimalPressed {
 	
     [self updateHistoryAndVariablesValues];
-	
     NSRange range = [self.display.text rangeOfString:@"."];
     if (range.location == NSNotFound) {
         if (self.userIsInTheMiddleOfEnteringANumber) {
@@ -102,7 +98,7 @@
     self.display.text = @"0";
     self.userIsInTheMiddleOfEnteringANumber = NO;
     [self updateHistoryAndVariablesValues];
-    self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:0], @"x", [NSNumber numberWithDouble:0], @"y", nil];
+    self.testVariableValues = nil;
 }
 
 - (IBAction)backspacePressed {
@@ -132,15 +128,13 @@
 }
 - (IBAction)variablePressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
-    
-    [self.brain pushVariable:sender.currentTitle];
+    [self.brain pushOperation:sender.currentTitle];
     [self updateHistoryAndVariablesValues];
     self.display.text = sender.currentTitle;
     self.userIsInTheMiddleOfEnteringANumber = NO;
 }
 - (IBAction)testButtonPressed:(UIButton *)sender {
-    if ([sender.currentTitle isEqualToString:@"Test 1"])
-        self.testVariableValues = nil;
+    if ([sender.currentTitle isEqualToString:@"Test 1"]) self.testVariableValues = nil;
     [self updateDisplay];
     [self updateHistoryAndVariablesValues];
     self.history.text = [self.history.text stringByAppendingString:@" ="];

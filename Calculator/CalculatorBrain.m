@@ -46,11 +46,6 @@
     [self.programStack addObject:[NSNumber numberWithDouble:operand]];
 }
 
-- (void)pushVariable:(NSString *)variable
-{
-	[self.programStack addObject:variable];
-}
-
 - (void)pushOperation:(NSString *)operation
 {
 	[self.programStack addObject:operation];
@@ -152,17 +147,7 @@
 
 + (double)runProgram:(id)program
 {
-	NSMutableArray *stack;
-	if ([program isKindOfClass:[NSArray class]]) {
-		stack = [program mutableCopy];
-	}
-	for (int i = 0; i < stack.count; i++)
-	{
-		id element = [stack objectAtIndex:i];
-		if ([[[self class] variablesUsedInProgram:program] containsObject:element])
-			[stack replaceObjectAtIndex:i withObject:[NSNumber numberWithDouble:0]];
-	}
-	return [self popOperandOffProgramStack:stack];
+	return [self runProgram:program usingVariableValues:nil];
 }
 
 + (double)runProgram:(id)program
@@ -211,7 +196,8 @@
 	else return 0;
 }
 
-- (void)performClear {
+- (void)performClear
+{
     [self.programStack removeAllObjects];
 }
 
