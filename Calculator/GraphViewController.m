@@ -65,4 +65,11 @@
     return [[CalculatorBrain class] runProgram:self.program usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:x], @"x", nil]];
 }
 
+- (IBAction)resetPressed {
+    [NSUserDefaults resetStandardUserDefaults];
+    self.graphView.origin = CGPointZero;
+    self.graphView.scale = 0.0;
+    [self.graphView setNeedsDisplay];
+}
+
 @end

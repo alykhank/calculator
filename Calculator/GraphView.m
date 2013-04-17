@@ -31,10 +31,13 @@
 - (CGPoint)origin
 {
     if (!_origin.x || !_origin.y) {
-        return CGPointMake(DEFAULT_ORIGIN_X, DEFAULT_ORIGIN_Y);
-    } else {
-        return _origin;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _origin.x = [defaults floatForKey:@"origin.x"];
+        _origin.y = [defaults floatForKey:@"origin.y"];
+        if (!_origin.x) _origin.x = DEFAULT_ORIGIN_X;
+        if (!_origin.y) _origin.y = DEFAULT_ORIGIN_Y;
     }
+    return _origin;
 }
 
 - (void)setOrigin:(CGPoint)origin
@@ -42,16 +45,20 @@
     if (_origin.x != origin.x || _origin.y != origin.y) {
         _origin = origin;
         [self setNeedsDisplay];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setFloat:_origin.x forKey:@"origin.x"];
+        [defaults setFloat:_origin.y forKey:@"origin.y"];
     }
 }
 
 - (CGFloat)scale
 {
     if (!_scale) {
-        return DEFAULT_SCALE;
-    } else {
-        return _scale;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _scale = [defaults floatForKey:@"scale"];
+        if (!_scale) _scale = DEFAULT_SCALE;
     }
+    return _scale;
 }
 
 - (void)setScale:(CGFloat)scale
@@ -59,6 +66,8 @@
     if (_scale != scale) {
         _scale = scale;
         [self setNeedsDisplay];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setFloat:_scale forKey:@"scale"];
     }
 }
 
