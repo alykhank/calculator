@@ -475,7 +475,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="xrf-AF-3XQ" kind="push" id="XXr-4v-H0V"/>
+                                    <segue destination="xrf-AF-3XQ" kind="push" identifier="Graph" id="XXr-4v-H0V"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -617,7 +617,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="Bh6-7o-paf"/>
                     <connections>
-                        <outlet property="program" destination="iyh-cK-bru" id="PUU-Mb-wpv"/>
+                        <outlet property="programLabel" destination="iyh-cK-bru" id="2EJ-jx-7Yb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqt-nx-X9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -660,7 +660,7 @@
         <class className="GraphViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="program" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="programLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">

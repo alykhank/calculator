@@ -95,15 +95,15 @@
 		37761313158FE21900DA5198 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
-				3776132A15900BE000DA5198 /* CalculatorBrain.h */,
-				3776132B15900BE000DA5198 /* CalculatorBrain.m */,
 				3776131C158FE21900DA5198 /* CalculatorAppDelegate.h */,
 				3776131D158FE21900DA5198 /* CalculatorAppDelegate.m */,
 				3776131F158FE21900DA5198 /* MainStoryboard.storyboard */,
 				F5206338171E37A1000F8853 /* GraphViewController.h */,
+				F5206339171E37A1000F8853 /* GraphViewController.m */,
 				F520633B171E38C7000F8853 /* GraphView.h */,
 				F520633C171E38C7000F8853 /* GraphView.m */,
-				F5206339171E37A1000F8853 /* GraphViewController.m */,
+				3776132A15900BE000DA5198 /* CalculatorBrain.h */,
+				3776132B15900BE000DA5198 /* CalculatorBrain.m */,
 				37761322158FE21900DA5198 /* CalculatorViewController.h */,
 				37761323158FE21900DA5198 /* CalculatorViewController.m */,
 				37761314158FE21900DA5198 /* Supporting Files */,

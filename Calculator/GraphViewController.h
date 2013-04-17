@@ -10,6 +10,8 @@
 
 @interface GraphViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *program;
+@property (nonatomic, strong) id program;
+
+@property (weak, nonatomic) IBOutlet UILabel *programLabel;
 
 @end

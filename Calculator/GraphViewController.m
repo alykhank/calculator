@@ -7,6 +7,7 @@
 //
 
 #import "GraphViewController.h"
+#import "CalculatorBrain.h"
 
 @interface GraphViewController ()
 
@@ -15,6 +16,7 @@
 @implementation GraphViewController
 
 @synthesize program = _program;
+@synthesize programLabel = _programLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +31,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.programLabel.text = [NSString stringWithFormat:@"y = %@", [[CalculatorBrain class] descriptionOfProgram:self.program]];
 }
 
 - (void)didReceiveMemoryWarning
