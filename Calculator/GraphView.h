@@ -23,5 +23,6 @@
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture;
 - (void)pan:(UIPanGestureRecognizer *)gesture;
+- (void)tap:(UITapGestureRecognizer *)gesture;
 
 @end

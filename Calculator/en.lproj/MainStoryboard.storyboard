@@ -610,10 +610,6 @@
                                     <constraint firstAttribute="trailing" secondItem="iyh-cK-bru" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="poZ-2I-wSg"/>
                                     <constraint firstItem="iyh-cK-bru" firstAttribute="leading" secondItem="Ymb-M0-jRo" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="soQ-A3-sGx"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="RJt-Jg-e2a" appends="YES" id="GOT-iw-LiT"/>
-                                    <outletCollection property="gestureRecognizers" destination="hQB-dA-5MZ" appends="YES" id="QW1-Nu-Rip"/>
-                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -624,9 +620,6 @@
                             <constraint firstItem="Ymb-M0-jRo" firstAttribute="trailing" secondItem="dZX-Qg-Sc7" secondAttribute="trailing" type="default" id="NOt-mD-DXw"/>
                             <constraint firstItem="Ymb-M0-jRo" firstAttribute="leading" secondItem="dZX-Qg-Sc7" secondAttribute="leading" type="default" id="nlv-TC-epe"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="RJt-Jg-e2a" appends="YES" id="bsL-WT-wQu"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="Bh6-7o-paf"/>
                     <connections>
@@ -635,12 +628,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqt-nx-X9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="RJt-Jg-e2a">
-                    <connections>
-                        <outlet property="delegate" destination="Ymb-M0-jRo" id="0mt-Rg-B6B"/>
-                    </connections>
-                </pinchGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="hQB-dA-5MZ"/>
             </objects>
             <point key="canvasLocation" x="1064" y="142"/>
         </scene>
