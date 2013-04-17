@@ -23,6 +23,8 @@
 - (void)setProgram:(id)program
 {
     _program = program;
+    NSString *equation = [[CalculatorBrain class] descriptionOfProgram:self.program];
+    self.programLabel.text = [NSString stringWithFormat:@"y = %@", [equation length] ? equation : @"0"];
     [self.graphView setNeedsDisplay];
 }
 
@@ -50,8 +52,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    NSString *equation = [[CalculatorBrain class] descriptionOfProgram:self.program];
-    self.programLabel.text = [NSString stringWithFormat:@"y = %@", [equation length] ? equation : @"0"];
 }
 
 - (void)didReceiveMemoryWarning

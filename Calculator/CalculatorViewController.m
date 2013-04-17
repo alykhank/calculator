@@ -152,4 +152,8 @@
     }
 }
 
+- (IBAction)graphPressed {
+    [[[self.splitViewController viewControllers] lastObject] setProgram:self.brain.program];
+}
+
 @end
