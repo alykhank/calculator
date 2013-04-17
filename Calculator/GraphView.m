@@ -16,6 +16,8 @@
 @synthesize dataSource = _dataSource;
 
 #define DEFAULT_SCALE 20.0
+#define DEFAULT_ORIGIN_X self.bounds.origin.x + self.bounds.size.width / 2.0
+#define DEFAULT_ORIGIN_Y self.bounds.origin.y + self.bounds.size.height / 2.0
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,6 +26,23 @@
         // Initialization code
     }
     return self;
+}
+
+- (CGPoint)origin
+{
+    if (!_origin.x || !_origin.y) {
+        return CGPointMake(DEFAULT_ORIGIN_X, DEFAULT_ORIGIN_Y);
+    } else {
+        return _origin;
+    }
+}
+
+- (void)setOrigin:(CGPoint)origin
+{
+    if (_origin.x != origin.x || _origin.y != origin.y) {
+        _origin = origin;
+        [self setNeedsDisplay];
+    }
 }
 
 - (CGFloat)scale
@@ -47,10 +66,7 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGPoint origin;
-    origin.x = self.bounds.origin.x + self.bounds.size.width / 2.0;
-    origin.y = self.bounds.origin.y + self.bounds.size.height / 2.0;
-    
+    CGPoint origin = self.origin;
     CGFloat scale = self.scale;
     
     [AxesDrawer drawAxesInRect:self.bounds originAtPoint:origin scale:scale];
@@ -91,6 +107,15 @@
     if ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded)) {
         self.scale *= gesture.scale;
         gesture.scale = 1;
+    }
+}
+
+- (void)pan:(UIPanGestureRecognizer *)gesture
+{
+    if ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded)) {
+        CGPoint translation = [gesture translationInView:self];
+        self.origin = CGPointMake(self.origin.x + translation.x, self.origin.y + translation.y);
+        [gesture setTranslation:CGPointZero inView:self];
     }
 }
 

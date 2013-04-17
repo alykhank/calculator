@@ -612,6 +612,7 @@
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="RJt-Jg-e2a" appends="YES" id="GOT-iw-LiT"/>
+                                    <outletCollection property="gestureRecognizers" destination="hQB-dA-5MZ" appends="YES" id="QW1-Nu-Rip"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -639,6 +640,7 @@
                         <outlet property="delegate" destination="Ymb-M0-jRo" id="0mt-Rg-B6B"/>
                     </connections>
                 </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="hQB-dA-5MZ"/>
             </objects>
             <point key="canvasLocation" x="1064" y="142"/>
         </scene>
@@ -665,9 +667,6 @@
         <class className="CalculatorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
             <relationships>
-                <relationship kind="action" name="digitPressed:" candidateClass="UIButton"/>
-                <relationship kind="action" name="operationPressed:" candidateClass="UIButton"/>
-                <relationship kind="action" name="variablePressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="display" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="history" candidateClass="UILabel"/>
             </relationships>
