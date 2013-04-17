@@ -18,7 +18,6 @@
 @implementation CalculatorViewController
 @synthesize display = _display;
 @synthesize history = _history;
-@synthesize variables = _variables;
 @synthesize userIsInTheMiddleOfEnteringANumber = _userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
 @synthesize testVariableValues = _testVariableValues;
@@ -33,13 +32,8 @@
     return _testVariableValues;
 }
 
-- (void)updateHistoryAndVariablesValues {
+- (void)updateHistory {
     self.history.text = [[self.brain class] descriptionOfProgram:self.brain.program];
-    
-    NSString *variableValues = @"";
-    for (NSString *variable in [[self.brain class] variablesUsedInProgram:self.brain.program])
-        variableValues = [variableValues stringByAppendingFormat:@"%@ = %@    ", variable, [self.testVariableValues objectForKey:variable]];
-    self.variables.text = variableValues;
 }
 
 - (void)updateDisplay {
@@ -51,7 +45,7 @@
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = sender.currentTitle;
 	
-    [self updateHistoryAndVariablesValues];
+    [self updateHistory];
     
     if (self.userIsInTheMiddleOfEnteringANumber) {
         self.display.text = [self.display.text stringByAppendingString:digit];
@@ -67,7 +61,7 @@
 }
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
-    [self updateHistoryAndVariablesValues];
+    [self updateHistory];
     self.userIsInTheMiddleOfEnteringANumber = NO;
 }
 
@@ -75,13 +69,13 @@
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
     [self.brain pushOperation:sender.currentTitle];
     [self updateDisplay];
-    [self updateHistoryAndVariablesValues];
+    [self updateHistory];
     self.history.text = [self.history.text stringByAppendingString:@" ="];
 }
 
 - (IBAction)decimalPressed {
 	
-    [self updateHistoryAndVariablesValues];
+    [self updateHistory];
     NSRange range = [self.display.text rangeOfString:@"."];
     if (range.location == NSNotFound) {
         if (self.userIsInTheMiddleOfEnteringANumber) {
@@ -97,7 +91,7 @@
     [self.brain performClear];
     self.display.text = @"0";
     self.userIsInTheMiddleOfEnteringANumber = NO;
-    [self updateHistoryAndVariablesValues];
+    [self updateHistory];
     self.testVariableValues = nil;
 }
 
@@ -122,7 +116,7 @@
         double result = [[self.brain class] runProgram:self.brain.program usingVariableValues:self.testVariableValues];
         NSString *resultString = [NSString stringWithFormat:@"%g", result];
         self.display.text = resultString;
-        [self updateHistoryAndVariablesValues];
+        [self updateHistory];
         self.history.text = [self.history.text stringByAppendingString:@" ="];
     }
 }
@@ -130,18 +124,9 @@
 - (IBAction)variablePressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
     [self.brain pushOperation:sender.currentTitle];
-    [self updateHistoryAndVariablesValues];
+    [self updateHistory];
     self.display.text = sender.currentTitle;
     self.userIsInTheMiddleOfEnteringANumber = NO;
-}
-
-- (IBAction)testVariablesChanged:(UISegmentedControl *)sender {
-    if ([[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] isEqualToString:@"1"]) self.testVariableValues = nil;
-    else if ([[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] isEqualToString:@"2"]) self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithDouble:-3], @"x", [NSNumber numberWithDouble:4], @"y", nil];
-    [self updateDisplay];
-    [self updateHistoryAndVariablesValues];
-    self.history.text = [self.history.text stringByAppendingString:@" ="];
-
 }
 
 - (IBAction)undoPressed {
@@ -155,7 +140,7 @@
     }
     else {
         [self.brain popItem];
-        [self updateHistoryAndVariablesValues];
+        [self updateHistory];
         [self updateDisplay];
     }
 }
