@@ -593,27 +593,39 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ymb-M0-jRo" customClass="GraphView">
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyh-cK-bru">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="oRN-te-Zco"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyh-cK-bru">
+                                <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="ePu-4U-rgj"/>
+                                    <constraint firstAttribute="bottom" secondItem="iyh-cK-bru" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="1tM-os-Tks"/>
+                                    <constraint firstAttribute="trailing" secondItem="iyh-cK-bru" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="poZ-2I-wSg"/>
+                                    <constraint firstItem="iyh-cK-bru" firstAttribute="leading" secondItem="Ymb-M0-jRo" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="soQ-A3-sGx"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="RJt-Jg-e2a" appends="YES" id="GOT-iw-LiT"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Ymb-M0-jRo" firstAttribute="top" secondItem="dZX-Qg-Sc7" secondAttribute="top" type="default" id="5oj-ww-6qP"/>
-                            <constraint firstItem="iyh-cK-bru" firstAttribute="bottom" secondItem="dZX-Qg-Sc7" secondAttribute="bottom" type="default" id="AWn-9C-YJy"/>
-                            <constraint firstAttribute="trailing" secondItem="iyh-cK-bru" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Dr7-dI-Or8"/>
+                            <constraint firstItem="Ymb-M0-jRo" firstAttribute="bottom" secondItem="dZX-Qg-Sc7" secondAttribute="bottom" type="default" id="GVC-M4-KkU"/>
                             <constraint firstItem="Ymb-M0-jRo" firstAttribute="trailing" secondItem="dZX-Qg-Sc7" secondAttribute="trailing" type="default" id="NOt-mD-DXw"/>
-                            <constraint firstItem="iyh-cK-bru" firstAttribute="leading" secondItem="dZX-Qg-Sc7" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="jfe-z8-YYN"/>
                             <constraint firstItem="Ymb-M0-jRo" firstAttribute="leading" secondItem="dZX-Qg-Sc7" secondAttribute="leading" type="default" id="nlv-TC-epe"/>
-                            <constraint firstAttribute="bottom" secondItem="Ymb-M0-jRo" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="pVK-Ix-4iE"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="RJt-Jg-e2a" appends="YES" id="bsL-WT-wQu"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="Bh6-7o-paf"/>
                     <connections>
@@ -622,6 +634,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqt-nx-X9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="RJt-Jg-e2a">
+                    <connections>
+                        <outlet property="delegate" destination="Ymb-M0-jRo" id="0mt-Rg-B6B"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1064" y="142"/>
         </scene>

@@ -38,6 +38,7 @@
 - (void)setGraphView:(GraphView *)graphView
 {
     _graphView = graphView;
+    [self.graphView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:graphView action:@selector(pinch:)]];
     self.graphView.dataSource = self;
 }
 
@@ -46,7 +47,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     NSString *equation = [[CalculatorBrain class] descriptionOfProgram:self.program];
-    self.programLabel.text = [NSString stringWithFormat:@"y = %@", [equation length] ? @"0" : equation];
+    self.programLabel.text = [NSString stringWithFormat:@"y = %@", [equation length] ? equation : @"0"];
 }
 
 - (void)didReceiveMemoryWarning
