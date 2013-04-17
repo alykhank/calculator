@@ -7,6 +7,7 @@
 //
 
 #import "GraphView.h"
+#import "AxesDrawer.h"
 
 @implementation GraphView
 
@@ -28,6 +29,8 @@
     CGPoint origin;
     origin.x = self.bounds.origin.x + self.bounds.size.width / 2.0;
     origin.y = self.bounds.origin.y + self.bounds.size.height / 2.0;
+    
+    [AxesDrawer drawAxesInRect:self.bounds originAtPoint:origin scale:1.0];
     
     CGFloat minimumX;
     minimumX = self.bounds.origin.x - origin.x;
