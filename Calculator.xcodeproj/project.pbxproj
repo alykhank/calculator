@@ -19,6 +19,7 @@
 		37761324158FE21900DA5198 /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37761323158FE21900DA5198 /* CalculatorViewController.m */; };
 		3776132C15900BE000DA5198 /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 3776132B15900BE000DA5198 /* CalculatorBrain.m */; };
 		37D3FC221703830400E319CE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D3FC211703830400E319CE /* Default-568h@2x.png */; };
+		F520633A171E37A1000F8853 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5206339171E37A1000F8853 /* GraphViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,8 @@
 		3776132A15900BE000DA5198 /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
 		3776132B15900BE000DA5198 /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
 		37D3FC211703830400E319CE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		F5206338171E37A1000F8853 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		F5206339171E37A1000F8853 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,8 @@
 				3776131C158FE21900DA5198 /* CalculatorAppDelegate.h */,
 				3776131D158FE21900DA5198 /* CalculatorAppDelegate.m */,
 				3776131F158FE21900DA5198 /* MainStoryboard.storyboard */,
+				F5206338171E37A1000F8853 /* GraphViewController.h */,
+				F5206339171E37A1000F8853 /* GraphViewController.m */,
 				37761322158FE21900DA5198 /* CalculatorViewController.h */,
 				37761323158FE21900DA5198 /* CalculatorViewController.m */,
 				37761314158FE21900DA5198 /* Supporting Files */,
@@ -183,6 +188,7 @@
 				3776131E158FE21900DA5198 /* CalculatorAppDelegate.m in Sources */,
 				37761324158FE21900DA5198 /* CalculatorViewController.m in Sources */,
 				3776132C15900BE000DA5198 /* CalculatorBrain.m in Sources */,
+				F520633A171E37A1000F8853 /* GraphViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
