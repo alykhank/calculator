@@ -95,7 +95,7 @@
 	}
     else
     {
-        result = [NSString stringWithFormat:@"0"];
+        result = @"0";
     }
     
     return result;

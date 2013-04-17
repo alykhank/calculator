@@ -31,7 +31,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.programLabel.text = [NSString stringWithFormat:@"y = %@", [[CalculatorBrain class] descriptionOfProgram:self.program]];
+    NSString *equation = [[CalculatorBrain class] descriptionOfProgram:self.program];
+    if (![equation isEqualToString:@""])
+    self.programLabel.text = [NSString stringWithFormat:@"y = %@", equation];
 }
 
 - (void)didReceiveMemoryWarning
