@@ -7,16 +7,24 @@
 //
 
 #import "GraphViewController.h"
+#import "GraphView.h"
 #import "CalculatorBrain.h"
 
-@interface GraphViewController ()
-
+@interface GraphViewController () <GraphViewDataSource>
+@property (weak, nonatomic) IBOutlet GraphView *graphView;
 @end
 
 @implementation GraphViewController
 
 @synthesize program = _program;
 @synthesize programLabel = _programLabel;
+@synthesize graphView = _graphView;
+
+- (void)setProgram:(id)program
+{
+    _program = program;
+    [self.graphView setNeedsDisplay];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,19 +35,29 @@
     return self;
 }
 
+- (void)setGraphView:(GraphView *)graphView
+{
+    _graphView = graphView;
+    self.graphView.dataSource = self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     NSString *equation = [[CalculatorBrain class] descriptionOfProgram:self.program];
-    if (![equation isEqualToString:@""])
-    self.programLabel.text = [NSString stringWithFormat:@"y = %@", equation];
+    self.programLabel.text = [NSString stringWithFormat:@"y = %@", [equation isEqualToString:@""] ? @"0" : equation];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (float)yValueForGraphView:(GraphView *)sender withXValue:(float)x
+{
+    return [[CalculatorBrain class] runProgram:self.program usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:x], @"x", nil]];
 }
 
 @end

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class GraphView;
+
+@protocol GraphViewDataSource <NSObject>
+- (float)yValueForGraphView:(GraphView *)sender withXValue:(float)x;
+@end
+
 @interface GraphView : UIView
+
+@property (nonatomic, weak) IBOutlet id <GraphViewDataSource> dataSource;
 
 @end
