@@ -14,6 +14,8 @@
 
 @implementation GraphViewController
 
+@synthesize program = _program;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

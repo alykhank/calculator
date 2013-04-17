@@ -1,5 +1,5 @@
 //
-//  GraphViewController.h
+//  GraphView.h
 //  Calculator
 //
 //  Created by alykhan.kanji on 16/04/13.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GraphViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet UILabel *program;
+@interface GraphView : UIView
 
 @end
