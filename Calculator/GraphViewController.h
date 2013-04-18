@@ -13,6 +13,7 @@
 @property (nonatomic, strong) id program;
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UISwitch *drawingStyleSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *programLabel;
 
 @end

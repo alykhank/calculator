@@ -18,6 +18,7 @@
 @implementation GraphViewController
 
 @synthesize program = _program;
+@synthesize drawingStyleSwitch = _drawingStyleSwitch;
 @synthesize programLabel = _programLabel;
 @synthesize graphView = _graphView;
 @synthesize toolbar = _toolbar;
@@ -91,7 +92,11 @@
 
 - (BOOL)drawingStyle
 {
-    return NO;
+    return self.drawingStyleSwitch.isOn;
+}
+
+- (IBAction)drawingStyleChanged:(UISwitch *)sender {
+    [self.graphView setNeedsDisplay];
 }
 
 - (IBAction)resetPressed {

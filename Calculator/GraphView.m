@@ -85,7 +85,7 @@
     
     CGContextSetLineWidth(context, 1);
     [[UIColor blueColor] setStroke];
-    [[UIColor redColor] setFill];
+    [[UIColor blueColor] setFill];
     
     CGContextBeginPath(context);
     CGContextMoveToPoint(context, origin.x + minimumX * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:minimumX] * scale);

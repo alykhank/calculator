@@ -630,14 +630,21 @@
                                             <action selector="resetPressed" destination="uk5-6q-IIX" eventType="touchUpInside" id="qTV-bE-cqg"/>
                                         </connections>
                                     </button>
+                                    <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Pi-EW-iWT">
+                                        <connections>
+                                            <action selector="drawingStyleChanged:" destination="uk5-6q-IIX" eventType="valueChanged" id="KbY-XK-zZB"/>
+                                        </connections>
+                                    </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="IdS-jt-jhg" firstAttribute="leading" secondItem="rE4-Ix-EQv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="5xP-0v-mb5"/>
+                                    <constraint firstItem="2Ob-or-oqM" firstAttribute="leading" secondItem="1Pi-EW-iWT" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="NCe-rA-Tvg"/>
                                     <constraint firstAttribute="trailing" secondItem="2Ob-or-oqM" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="S50-pc-fZ8"/>
                                     <constraint firstItem="2Ob-or-oqM" firstAttribute="top" secondItem="rE4-Ix-EQv" secondAttribute="top" constant="27" id="VQQ-Vq-54r"/>
                                     <constraint firstAttribute="bottom" secondItem="IdS-jt-jhg" secondAttribute="bottom" constant="13" id="ZuY-J8-Vll"/>
+                                    <constraint firstItem="1Pi-EW-iWT" firstAttribute="centerY" secondItem="2Ob-or-oqM" secondAttribute="centerY" type="default" id="mgR-d2-ysp"/>
                                     <constraint firstAttribute="trailing" secondItem="IdS-jt-jhg" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="oFH-QC-zKk"/>
                                 </constraints>
                             </view>
@@ -660,6 +667,7 @@
                     <navigationItem key="navigationItem" title="Graph" id="CGf-7a-1b0"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <connections>
+                        <outlet property="drawingStyleSwitch" destination="1Pi-EW-iWT" id="NqS-ev-Ppf"/>
                         <outlet property="graphView" destination="rE4-Ix-EQv" id="iBp-ey-U3v"/>
                         <outlet property="programLabel" destination="IdS-jt-jhg" id="KOW-g7-tgu"/>
                         <outlet property="toolbar" destination="JVI-F5-qa5" id="Obd-Od-3zF"/>
@@ -690,6 +698,8 @@
         <class className="GraphViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
             <relationships>
+                <relationship kind="action" name="drawingStyleChanged:" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="drawingStyleSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="graphView" candidateClass="GraphView"/>
                 <relationship kind="outlet" name="programLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="splitViewBarButtonItem" candidateClass="UIBarButtonItem"/>
