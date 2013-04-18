@@ -94,20 +94,20 @@
     {
         for (float i = minimumX; i <= maximumX + 0.5; i += 0.5)
         {
-//            NSLog(@"Mathematical X: %f Y: %f", i, [self.dataSource yValueForGraphView:self withXValue:i]);
-//            NSLog(@"Drawing X: %f Y: %f", origin.x + i, origin.y - [self.dataSource yValueForGraphView:self withXValue:i]);
-//            CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
-            CGContextFillRect(context, CGRectMake(origin.x + i * scale - 2, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale - 2, 4, 4));
+            if ([self.dataSource drawingStyle])
+                CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
+            else
+                CGContextFillRect(context, CGRectMake(origin.x + i * scale - 2, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale - 2, 4, 4));
         }
     }
     else
     {
         for (float i = minimumX; i <= maximumX + 1; i++)
         {
-//            NSLog(@"Mathematical X: %f Y: %f", i, [self.dataSource yValueForGraphView:self withXValue:i]);
-//            NSLog(@"Drawing X: %f Y: %f", origin.x + i, origin.y - [self.dataSource yValueForGraphView:self withXValue:i]);
-//            CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
-            CGContextFillRect(context, CGRectMake(origin.x + i * scale - 2, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale - 2, 4, 4));
+            if ([self.dataSource drawingStyle])
+                CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
+            else
+                CGContextFillRect(context, CGRectMake(origin.x + i * scale - 2, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale - 2, 4, 4));
         }
     }
     

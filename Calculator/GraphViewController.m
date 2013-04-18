@@ -89,6 +89,11 @@
     return [[CalculatorBrain class] runProgram:self.program usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:x], @"x", nil]];
 }
 
+- (BOOL)drawingStyle
+{
+    return NO;
+}
+
 - (IBAction)resetPressed {
     [NSUserDefaults resetStandardUserDefaults];
     self.graphView.origin = CGPointZero;

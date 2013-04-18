@@ -12,6 +12,7 @@
 
 @protocol GraphViewDataSource <NSObject>
 - (float)yValueForGraphView:(GraphView *)sender withXValue:(float)x;
+- (BOOL)drawingStyle;
 @end
 
 @interface GraphView : UIView
