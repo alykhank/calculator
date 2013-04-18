@@ -85,6 +85,7 @@
     
     CGContextSetLineWidth(context, 1);
     [[UIColor blueColor] setStroke];
+    [[UIColor redColor] setFill];
     
     CGContextBeginPath(context);
     CGContextMoveToPoint(context, origin.x + minimumX * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:minimumX] * scale);
@@ -95,7 +96,8 @@
         {
 //            NSLog(@"Mathematical X: %f Y: %f", i, [self.dataSource yValueForGraphView:self withXValue:i]);
 //            NSLog(@"Drawing X: %f Y: %f", origin.x + i, origin.y - [self.dataSource yValueForGraphView:self withXValue:i]);
-            CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
+//            CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
+            CGContextFillRect(context, CGRectMake(origin.x + i * scale - 2, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale - 2, 4, 4));
         }
     }
     else
@@ -104,7 +106,8 @@
         {
 //            NSLog(@"Mathematical X: %f Y: %f", i, [self.dataSource yValueForGraphView:self withXValue:i]);
 //            NSLog(@"Drawing X: %f Y: %f", origin.x + i, origin.y - [self.dataSource yValueForGraphView:self withXValue:i]);
-            CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
+//            CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
+            CGContextFillRect(context, CGRectMake(origin.x + i * scale - 2, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale - 2, 4, 4));
         }
     }
     
