@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GraphViewController : UIViewController
+@interface GraphViewController : UIViewController <UISplitViewControllerDelegate>
 
 @property (nonatomic, strong) id program;
 
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UILabel *programLabel;
 
 @end

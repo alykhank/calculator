@@ -12,6 +12,7 @@
 
 @interface GraphViewController () <GraphViewDataSource>
 @property (weak, nonatomic) IBOutlet GraphView *graphView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *splitViewBarButtonItem;
 @end
 
 @implementation GraphViewController
@@ -19,6 +20,8 @@
 @synthesize program = _program;
 @synthesize programLabel = _programLabel;
 @synthesize graphView = _graphView;
+@synthesize toolbar = _toolbar;
+@synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
 - (void)setProgram:(id)program
 {
@@ -52,6 +55,27 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.splitViewController.delegate = self;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
+{
+    barButtonItem.title = @"Calculator";
+    self.splitViewBarButtonItem = barButtonItem;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    self.splitViewBarButtonItem = nil;
+}
+
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem
+{
+    NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+    if (_splitViewBarButtonItem) [toolbarItems removeObject:_splitViewBarButtonItem];
+    if (splitViewBarButtonItem) [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
+    self.toolbar.items = toolbarItems;
+    _splitViewBarButtonItem = splitViewBarButtonItem;
 }
 
 - (void)didReceiveMemoryWarning

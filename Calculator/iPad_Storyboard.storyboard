@@ -636,19 +636,25 @@
                                 <constraints>
                                     <constraint firstItem="IdS-jt-jhg" firstAttribute="leading" secondItem="rE4-Ix-EQv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="5xP-0v-mb5"/>
                                     <constraint firstAttribute="trailing" secondItem="2Ob-or-oqM" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="S50-pc-fZ8"/>
-                                    <constraint firstAttribute="bottom" secondItem="IdS-jt-jhg" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="V2Y-aT-BNw"/>
-                                    <constraint firstItem="2Ob-or-oqM" firstAttribute="top" secondItem="rE4-Ix-EQv" secondAttribute="top" constant="20" symbolic="YES" type="default" id="jbK-0u-tCK"/>
+                                    <constraint firstItem="2Ob-or-oqM" firstAttribute="top" secondItem="rE4-Ix-EQv" secondAttribute="top" constant="27" id="VQQ-Vq-54r"/>
+                                    <constraint firstAttribute="bottom" secondItem="IdS-jt-jhg" secondAttribute="bottom" constant="13" id="ZuY-J8-Vll"/>
                                     <constraint firstAttribute="trailing" secondItem="IdS-jt-jhg" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="oFH-QC-zKk"/>
                                 </constraints>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVI-F5-qa5">
+                                <items/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="JVI-F5-qa5" firstAttribute="top" secondItem="iNV-Li-dyH" secondAttribute="top" type="default" id="1Yw-GR-R7d"/>
                             <constraint firstItem="rE4-Ix-EQv" firstAttribute="trailing" secondItem="iNV-Li-dyH" secondAttribute="trailing" type="default" id="AY6-X1-4I8"/>
                             <constraint firstItem="rE4-Ix-EQv" firstAttribute="bottom" secondItem="iNV-Li-dyH" secondAttribute="bottom" type="default" id="Az8-Kq-e1b"/>
+                            <constraint firstItem="JVI-F5-qa5" firstAttribute="trailing" secondItem="iNV-Li-dyH" secondAttribute="trailing" type="default" id="JVC-9h-0hl"/>
+                            <constraint firstItem="JVI-F5-qa5" firstAttribute="leading" secondItem="iNV-Li-dyH" secondAttribute="leading" type="default" id="Vh9-mK-hC2"/>
                             <constraint firstItem="rE4-Ix-EQv" firstAttribute="leading" secondItem="iNV-Li-dyH" secondAttribute="leading" type="default" id="ayL-HL-Skp"/>
-                            <constraint firstItem="rE4-Ix-EQv" firstAttribute="top" secondItem="iNV-Li-dyH" secondAttribute="top" type="default" id="fFL-jH-u1P"/>
+                            <constraint firstItem="rE4-Ix-EQv" firstAttribute="top" secondItem="JVI-F5-qa5" secondAttribute="bottom" type="default" id="b12-6s-Ivs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="CGf-7a-1b0"/>
@@ -656,6 +662,7 @@
                     <connections>
                         <outlet property="graphView" destination="rE4-Ix-EQv" id="iBp-ey-U3v"/>
                         <outlet property="programLabel" destination="IdS-jt-jhg" id="KOW-g7-tgu"/>
+                        <outlet property="toolbar" destination="JVI-F5-qa5" id="Obd-Od-3zF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I3U-5V-1GW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -667,6 +674,9 @@
         <class className="CalculatorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
             <relationships>
+                <relationship kind="action" name="digitPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="operationPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="variablePressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="display" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="history" candidateClass="UILabel"/>
             </relationships>
@@ -682,6 +692,8 @@
             <relationships>
                 <relationship kind="outlet" name="graphView" candidateClass="GraphView"/>
                 <relationship kind="outlet" name="programLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="splitViewBarButtonItem" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
