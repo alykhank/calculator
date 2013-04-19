@@ -80,34 +80,31 @@
     
     [AxesDrawer drawAxesInRect:self.bounds originAtPoint:origin scale:scale];
     
-    CGFloat minimumX = (self.bounds.origin.x - origin.x) / scale;
-    CGFloat maximumX = (self.bounds.size.width - origin.x) / scale;
-    
     CGContextSetLineWidth(context, 1);
     [[UIColor blueColor] setStroke];
     [[UIColor blueColor] setFill];
     
     CGContextBeginPath(context);
-    CGContextMoveToPoint(context, origin.x + minimumX * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:minimumX] * scale);
+    CGContextMoveToPoint(context, self.bounds.origin.x, origin.y - [self.dataSource yValueForGraphView:self withXValue:(self.bounds.origin.x - origin.x) / scale] * scale);
     
     if (self.contentScaleFactor == 2.0)
     {
-        for (float i = minimumX; i <= maximumX + 0.5; i += 0.5)
+        for (float i = self.bounds.origin.x; i <= self.bounds.size.width; i += 0.5)
         {
             if ([self.dataSource drawingStyle])
-                CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
+                CGContextAddLineToPoint(context, i, origin.y - [self.dataSource yValueForGraphView:self withXValue:(i - origin.x) / scale] * scale);
             else
-                CGContextFillRect(context, CGRectMake(origin.x + i * scale - 2, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale - 2, 4, 4));
+                CGContextFillRect(context, CGRectMake(i - 1, origin.y - [self.dataSource yValueForGraphView:self withXValue:(i - origin.x) / scale] * scale - 1, 2, 2));
         }
     }
     else
     {
-        for (float i = minimumX; i <= maximumX + 1; i++)
+        for (float i = self.bounds.origin.x; i <= self.bounds.size.width; i++)
         {
             if ([self.dataSource drawingStyle])
-                CGContextAddLineToPoint(context, origin.x + i * scale, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale);
+                CGContextAddLineToPoint(context, i, origin.y - [self.dataSource yValueForGraphView:self withXValue:(i - origin.x) / scale] * scale);
             else
-                CGContextFillRect(context, CGRectMake(origin.x + i * scale - 2, origin.y - [self.dataSource yValueForGraphView:self withXValue:i] * scale - 2, 4, 4));
+                CGContextFillRect(context, CGRectMake(i - 1, origin.y - [self.dataSource yValueForGraphView:self withXValue:(i - origin.x) / scale] * scale - 1, 2, 2));
         }
     }
     
