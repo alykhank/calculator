@@ -1,3 +1,5 @@
-.DS_Store
-Calculator.xcodeproj/project.xcworkspace/xcuserdata/
-Calculator.xcodeproj/xcuserdata/
+# Xcode
+build/
+xcuserdata
+*.xccheckout
+*.xcuserstate
