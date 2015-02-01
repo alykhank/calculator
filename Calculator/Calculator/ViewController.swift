@@ -11,15 +11,19 @@ import UIKit
 class ViewController: UIViewController
 {
     @IBOutlet weak var display: UILabel!
+    @IBOutlet weak var history: UILabel!
     
     var userIsInTheMiddleOfTypingANumber = false
 
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
+            if digit == "." && display.text!.rangeOfString(".") != nil {
+                return
+            }
             display.text = display.text! + digit
         } else {
-            display.text = digit
+            display.text = (digit == ".") ? "0." : digit
             userIsInTheMiddleOfTypingANumber = true
         }
     }
@@ -29,12 +33,16 @@ class ViewController: UIViewController
         if userIsInTheMiddleOfTypingANumber {
             enter()
         }
+        history.text = history.text! + " \(operation)"
         switch operation {
         case "×": performOperation { $0 * $1 }
         case "÷": performOperation { $1 / $0 }
         case "+": performOperation { $0 + $1 }
         case "−": performOperation { $1 - $0 }
         case "√": performOperation { sqrt($0) }
+        case "sin": performOperation { sin($0) }
+        case "cos": performOperation { cos($0) }
+        case "π": performOperation { M_PI }
         default: break
         }
     }
@@ -52,13 +60,26 @@ class ViewController: UIViewController
             enter()
         }
     }
+    
+    func performOperation(operation: Void -> Double) {
+        displayValue = operation()
+        enter()
+    }
 
-    var operandStack = Array<Double>()
+    var operandStack = [Double]()
     
     @IBAction func enter() {
         userIsInTheMiddleOfTypingANumber = false
         operandStack.append(displayValue)
+        history.text = history.text! + " \(display.text!)"
         println("operandStack = \(operandStack)")
+    }
+    
+    @IBAction func clear() {
+        userIsInTheMiddleOfTypingANumber = false
+        operandStack = []
+        display.text = "0"
+        history.text = " "
     }
     
     var displayValue: Double {
