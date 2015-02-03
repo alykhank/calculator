@@ -31,9 +31,16 @@ class ViewController: UIViewController
     @IBAction func operate(sender: UIButton) {
         let operation = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
+            if operation == "ᐩ/-" {
+                if display.text?.rangeOfString("-") != nil {
+                    display.text = dropFirst(display.text!)
+                } else {
+                    display.text = "-" + display.text!
+                }
+                return
+            }
             enter()
         }
-        history.text = history.text! + " \(operation)"
         switch operation {
         case "×": performOperation { $0 * $1 }
         case "÷": performOperation { $1 / $0 }
@@ -43,51 +50,87 @@ class ViewController: UIViewController
         case "sin": performOperation { sin($0) }
         case "cos": performOperation { cos($0) }
         case "π": performOperation { M_PI }
+        case "ᐩ/-": performOperation { -$0 }
         default: break
         }
+        removeTrailingEquals()
+        history.text = history.text! + " \(operation) ="
     }
     
     func performOperation(operation: (Double, Double) -> Double) {
         if operandStack.count >= 2 {
             displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
+            enterOperation()
         }
     }
     
     func performOperation(operation: Double -> Double) {
         if operandStack.count >= 1 {
             displayValue = operation(operandStack.removeLast())
-            enter()
+            enterOperation()
         }
     }
     
     func performOperation(operation: Void -> Double) {
         displayValue = operation()
-        enter()
+        enterOperation()
     }
 
     var operandStack = [Double]()
     
     @IBAction func enter() {
+        removeTrailingEquals()
+        if let value = displayValue {
+            history.text = history.text! + " \(value)"
+        }
+        enterOperation()
+    }
+    
+    func enterOperation() {
         userIsInTheMiddleOfTypingANumber = false
-        operandStack.append(displayValue)
-        history.text = history.text! + " \(display.text!)"
+        if let value = displayValue {
+            operandStack.append(value)
+        }
         println("operandStack = \(operandStack)")
+    }
+    
+    func removeTrailingEquals() {
+        if let equalsRange = history.text!.rangeOfString(" =") {
+            history.text!.removeRange(equalsRange)
+        }
     }
     
     @IBAction func clear() {
         userIsInTheMiddleOfTypingANumber = false
         operandStack = []
-        display.text = "0"
+        displayValue = nil
         history.text = " "
     }
     
-    var displayValue: Double {
+    @IBAction func backspace() {
+        if userIsInTheMiddleOfTypingANumber {
+            if countElements(display.text!) > 1 {
+                display.text = dropLast(display.text!)
+            } else if countElements(display.text!) == 1 {
+                displayValue = nil
+            }
+        }
+    }
+    
+    var displayValue: Double? {
         get {
-            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+            if let value = NSNumberFormatter().numberFromString(display.text!) {
+                return value.doubleValue
+            } else {
+                return nil
+            }
         }
         set {
-            display.text = "\(newValue)"
+            if let value = newValue {
+                display.text = "\(value)"
+            } else {
+                display.text = "0"
+            }
             userIsInTheMiddleOfTypingANumber = false
         }
     }
