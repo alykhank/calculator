@@ -1,14 +1,7 @@
-//
-//  ViewController.swift
-//  Calculator
-//
-//  Created by Alykhan Kanji on 2015-01-31.
-//  Copyright (c) 2015 Alykhan Kanji. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
+
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var history: UILabel!
 
@@ -108,4 +101,5 @@ class ViewController: UIViewController {
             userIsInTheMiddleOfTypingANumber = false
         }
     }
+
 }

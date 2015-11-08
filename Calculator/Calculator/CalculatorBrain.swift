@@ -29,9 +29,11 @@ class CalculatorBrain {
     private var knownOps = [String: Op]()
 
     init() {
+
         func learnOp(op: Op) {
             knownOps[op.description] = op
         }
+
         learnOp(Op.BinaryOperation("×", *))
         learnOp(Op.BinaryOperation("÷") { $1 / $0 })
         learnOp(Op.BinaryOperation("+", +))
@@ -91,4 +93,5 @@ class CalculatorBrain {
     func clear() {
         opStack.removeAll()
     }
+
 }
