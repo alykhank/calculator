@@ -156,6 +156,7 @@
 		371F2FC41A7CDF21002037D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Alykhan Kanji";
 				TargetAttributes = {
@@ -407,6 +408,7 @@
 				371F2FED1A7CDF21002037D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		371F2FEE1A7CDF21002037D8 /* Build configuration list for PBXNativeTarget "CalculatorTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +417,7 @@
 				371F2FF01A7CDF21002037D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

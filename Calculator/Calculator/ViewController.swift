@@ -33,7 +33,7 @@ class ViewController: UIViewController
         if userIsInTheMiddleOfTypingANumber {
             if operation == "ᐩ/-" {
                 if display.text?.rangeOfString("-") != nil {
-                    display.text = dropFirst(display.text!)
+                    display.text = String((display.text!).characters.dropFirst())
                 } else {
                     display.text = "-" + display.text!
                 }
@@ -57,21 +57,21 @@ class ViewController: UIViewController
         history.text = history.text! + " \(operation) ="
     }
     
-    func performOperation(operation: (Double, Double) -> Double) {
+    private func performOperation(operation: (Double, Double) -> Double) {
         if operandStack.count >= 2 {
             displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
             enterOperation()
         }
     }
     
-    func performOperation(operation: Double -> Double) {
+    private func performOperation(operation: Double -> Double) {
         if operandStack.count >= 1 {
             displayValue = operation(operandStack.removeLast())
             enterOperation()
         }
     }
     
-    func performOperation(operation: Void -> Double) {
+    private func performOperation(operation: Void -> Double) {
         displayValue = operation()
         enterOperation()
     }
@@ -91,7 +91,7 @@ class ViewController: UIViewController
         if let value = displayValue {
             operandStack.append(value)
         }
-        println("operandStack = \(operandStack)")
+        print("operandStack = \(operandStack)")
     }
     
     func removeTrailingEquals() {
@@ -109,9 +109,9 @@ class ViewController: UIViewController
     
     @IBAction func backspace() {
         if userIsInTheMiddleOfTypingANumber {
-            if countElements(display.text!) > 1 {
-                display.text = dropLast(display.text!)
-            } else if countElements(display.text!) == 1 {
+            if display.text!.characters.count > 1 {
+                display.text = String((display.text!).characters.dropLast())
+            } else if display.text!.characters.count == 1 {
                 displayValue = nil
             }
         }
