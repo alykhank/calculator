@@ -8,11 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController
-{
+class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var history: UILabel!
-    
+
     var userIsInTheMiddleOfTypingANumber = false
 
     @IBAction func appendDigit(sender: UIButton) {
@@ -27,7 +26,7 @@ class ViewController: UIViewController
             userIsInTheMiddleOfTypingANumber = true
         }
     }
-    
+
     @IBAction func operate(sender: UIButton) {
         let operation = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
@@ -56,28 +55,28 @@ class ViewController: UIViewController
         removeTrailingEquals()
         history.text = history.text! + " \(operation) ="
     }
-    
+
     private func performOperation(operation: (Double, Double) -> Double) {
         if operandStack.count >= 2 {
             displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
             enterOperation()
         }
     }
-    
+
     private func performOperation(operation: Double -> Double) {
         if operandStack.count >= 1 {
             displayValue = operation(operandStack.removeLast())
             enterOperation()
         }
     }
-    
+
     private func performOperation(operation: Void -> Double) {
         displayValue = operation()
         enterOperation()
     }
 
     var operandStack = [Double]()
-    
+
     @IBAction func enter() {
         removeTrailingEquals()
         if let value = displayValue {
@@ -85,7 +84,7 @@ class ViewController: UIViewController
         }
         enterOperation()
     }
-    
+
     func enterOperation() {
         userIsInTheMiddleOfTypingANumber = false
         if let value = displayValue {
@@ -93,20 +92,20 @@ class ViewController: UIViewController
         }
         print("operandStack = \(operandStack)")
     }
-    
+
     func removeTrailingEquals() {
         if let equalsRange = history.text!.rangeOfString(" =") {
             history.text!.removeRange(equalsRange)
         }
     }
-    
+
     @IBAction func clear() {
         userIsInTheMiddleOfTypingANumber = false
         operandStack = []
         displayValue = nil
         history.text = " "
     }
-    
+
     @IBAction func backspace() {
         if userIsInTheMiddleOfTypingANumber {
             if display.text!.characters.count > 1 {
@@ -116,7 +115,7 @@ class ViewController: UIViewController
             }
         }
     }
-    
+
     var displayValue: Double? {
         get {
             if let value = NSNumberFormatter().numberFromString(display.text!) {
@@ -135,4 +134,3 @@ class ViewController: UIViewController
         }
     }
 }
-
