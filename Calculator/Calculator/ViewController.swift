@@ -14,6 +14,8 @@ class ViewController: UIViewController {
 
     var userIsInTheMiddleOfTypingANumber = false
 
+    var brain = CalculatorBrain()
+
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
@@ -40,42 +42,16 @@ class ViewController: UIViewController {
             }
             enter()
         }
-        switch operation {
-        case "×": performOperation { $0 * $1 }
-        case "÷": performOperation { $1 / $0 }
-        case "+": performOperation { $0 + $1 }
-        case "−": performOperation { $1 - $0 }
-        case "√": performOperation { sqrt($0) }
-        case "sin": performOperation { sin($0) }
-        case "cos": performOperation { cos($0) }
-        case "π": performOperation { M_PI }
-        case "ᐩ/-": performOperation { -$0 }
-        default: break
-        }
-        removeTrailingEquals()
-        history.text = history.text! + " \(operation) ="
-    }
-
-    private func performOperation(operation: (Double, Double) -> Double) {
-        if operandStack.count >= 2 {
-            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enterOperation()
+        if let operation = sender.currentTitle {
+            if let result = brain.performOperation(operation) {
+                displayValue = result
+            } else {
+                displayValue = nil
+            }
+            removeTrailingEquals()
+            history.text = history.text! + " \(operation) ="
         }
     }
-
-    private func performOperation(operation: Double -> Double) {
-        if operandStack.count >= 1 {
-            displayValue = operation(operandStack.removeLast())
-            enterOperation()
-        }
-    }
-
-    private func performOperation(operation: Void -> Double) {
-        displayValue = operation()
-        enterOperation()
-    }
-
-    var operandStack = [Double]()
 
     @IBAction func enter() {
         removeTrailingEquals()
@@ -88,9 +64,8 @@ class ViewController: UIViewController {
     func enterOperation() {
         userIsInTheMiddleOfTypingANumber = false
         if let value = displayValue {
-            operandStack.append(value)
+            brain.pushOperand(value)
         }
-        print("operandStack = \(operandStack)")
     }
 
     func removeTrailingEquals() {
@@ -101,7 +76,7 @@ class ViewController: UIViewController {
 
     @IBAction func clear() {
         userIsInTheMiddleOfTypingANumber = false
-        operandStack = []
+        brain.clear()
         displayValue = nil
         history.text = " "
     }

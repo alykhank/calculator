@@ -13,6 +13,7 @@
 		371F2FD91A7CDF21002037D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 371F2FD81A7CDF21002037D8 /* Images.xcassets */; };
 		371F2FDC1A7CDF21002037D8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371F2FDA1A7CDF21002037D8 /* LaunchScreen.xib */; };
 		371F2FE81A7CDF21002037D8 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371F2FE71A7CDF21002037D8 /* CalculatorTests.swift */; };
+		37D7ABBB1BEF5ED00019A1CE /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D7ABBA1BEF5ED00019A1CE /* CalculatorBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		371F2FE11A7CDF21002037D8 /* CalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		371F2FE61A7CDF21002037D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		371F2FE71A7CDF21002037D8 /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
+		37D7ABBA1BEF5ED00019A1CE /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				371F2FD11A7CDF21002037D8 /* AppDelegate.swift */,
 				371F2FD31A7CDF21002037D8 /* ViewController.swift */,
+				37D7ABBA1BEF5ED00019A1CE /* CalculatorBrain.swift */,
 				371F2FD51A7CDF21002037D8 /* Main.storyboard */,
 				371F2FD81A7CDF21002037D8 /* Images.xcassets */,
 				371F2FDA1A7CDF21002037D8 /* LaunchScreen.xib */,
@@ -213,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37D7ABBB1BEF5ED00019A1CE /* CalculatorBrain.swift in Sources */,
 				371F2FD41A7CDF21002037D8 /* ViewController.swift in Sources */,
 				371F2FD21A7CDF21002037D8 /* AppDelegate.swift in Sources */,
 			);
