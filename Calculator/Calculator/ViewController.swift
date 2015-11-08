@@ -8,25 +8,36 @@
 
 import UIKit
 
-class ViewController: UIViewController
-{
+class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
-    
+    @IBOutlet weak var history: UILabel!
+
     var userIsInTheMiddleOfTypingANumber = false
 
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
+            if digit == "." && display.text!.rangeOfString(".") != nil {
+                return
+            }
             display.text = display.text! + digit
         } else {
-            display.text = digit
+            display.text = (digit == ".") ? "0." : digit
             userIsInTheMiddleOfTypingANumber = true
         }
     }
-    
+
     @IBAction func operate(sender: UIButton) {
         let operation = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
+            if operation == "ᐩ/-" {
+                if display.text?.rangeOfString("-") != nil {
+                    display.text = String((display.text!).characters.dropFirst())
+                } else {
+                    display.text = "-" + display.text!
+                }
+                return
+            }
             enter()
         }
         switch operation {
@@ -35,40 +46,91 @@ class ViewController: UIViewController
         case "+": performOperation { $0 + $1 }
         case "−": performOperation { $1 - $0 }
         case "√": performOperation { sqrt($0) }
+        case "sin": performOperation { sin($0) }
+        case "cos": performOperation { cos($0) }
+        case "π": performOperation { M_PI }
+        case "ᐩ/-": performOperation { -$0 }
         default: break
         }
+        removeTrailingEquals()
+        history.text = history.text! + " \(operation) ="
     }
-    
-    func performOperation(operation: (Double, Double) -> Double) {
+
+    private func performOperation(operation: (Double, Double) -> Double) {
         if operandStack.count >= 2 {
             displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
-        }
-    }
-    
-    func performOperation(operation: Double -> Double) {
-        if operandStack.count >= 1 {
-            displayValue = operation(operandStack.removeLast())
-            enter()
+            enterOperation()
         }
     }
 
-    var operandStack = Array<Double>()
-    
-    @IBAction func enter() {
-        userIsInTheMiddleOfTypingANumber = false
-        operandStack.append(displayValue)
-        println("operandStack = \(operandStack)")
+    private func performOperation(operation: Double -> Double) {
+        if operandStack.count >= 1 {
+            displayValue = operation(operandStack.removeLast())
+            enterOperation()
+        }
     }
-    
-    var displayValue: Double {
+
+    private func performOperation(operation: Void -> Double) {
+        displayValue = operation()
+        enterOperation()
+    }
+
+    var operandStack = [Double]()
+
+    @IBAction func enter() {
+        removeTrailingEquals()
+        if let value = displayValue {
+            history.text = history.text! + " \(value)"
+        }
+        enterOperation()
+    }
+
+    func enterOperation() {
+        userIsInTheMiddleOfTypingANumber = false
+        if let value = displayValue {
+            operandStack.append(value)
+        }
+        print("operandStack = \(operandStack)")
+    }
+
+    func removeTrailingEquals() {
+        if let equalsRange = history.text!.rangeOfString(" =") {
+            history.text!.removeRange(equalsRange)
+        }
+    }
+
+    @IBAction func clear() {
+        userIsInTheMiddleOfTypingANumber = false
+        operandStack = []
+        displayValue = nil
+        history.text = " "
+    }
+
+    @IBAction func backspace() {
+        if userIsInTheMiddleOfTypingANumber {
+            if display.text!.characters.count > 1 {
+                display.text = String((display.text!).characters.dropLast())
+            } else if display.text!.characters.count == 1 {
+                displayValue = nil
+            }
+        }
+    }
+
+    var displayValue: Double? {
         get {
-            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+            if let value = NSNumberFormatter().numberFromString(display.text!) {
+                return value.doubleValue
+            } else {
+                return nil
+            }
         }
         set {
-            display.text = "\(newValue)"
+            if let value = newValue {
+                display.text = "\(value)"
+            } else {
+                display.text = "0"
+            }
             userIsInTheMiddleOfTypingANumber = false
         }
     }
 }
-
