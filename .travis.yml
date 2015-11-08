@@ -1,0 +1,4 @@
+language: objective-c
+xcode_project: Calculator/Calculator.xcodeproj
+xcode_scheme: Calculator
+osx_image: xcode7.1
